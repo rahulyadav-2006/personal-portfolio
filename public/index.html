@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Data Scraper Dashboard</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-database"></i>
+                <span>Live Data Scraper</span>
+            </div>
+            <div class="nav-menu">
+                <a href="#dashboard" class="nav-link active" data-section="dashboard">
+                    <i class="fas fa-tachometer-alt"></i>
+                    Dashboard
+                </a>
+                <a href="#data" class="nav-link" data-section="data">
+                    <i class="fas fa-table"></i>
+                    Data
+                </a>
+                <a href="#scraper" class="nav-link" data-section="scraper">
+                    <i class="fas fa-spider"></i>
+                    Scraper
+                </a>
+                <a href="#logs" class="nav-link" data-section="logs">
+                    <i class="fas fa-list"></i>
+                    Logs
+                </a>
+            </div>
+            <div class="nav-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Floating Particles -->
+    <div class="particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Dashboard Section -->
+        <section id="dashboard" class="section active">
+            <div class="container">
+                <h1 class="section-title">Dashboard</h1>
+                
+                <!-- Stats Cards -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-newspaper"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="news-count">0</h3>
+                            <p>News Articles</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-coins"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="crypto-count">0</h3>
+                            <p>Crypto Prices</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-cloud-sun"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="weather-count">0</h3>
+                            <p>Weather Data</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="last-update">--</h3>
+                            <p>Last Update</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Data -->
+                <div class="dashboard-grid">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Recent News</h3>
+                            <button class="btn btn-sm" onclick="loadRecentData('news')">
+                                <i class="fas fa-refresh"></i>
+                            </button>
+                        </div>
+                        <div class="card-content">
+                            <div id="recent-news" class="data-list">
+                                <div class="loading">Loading...</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Top Crypto</h3>
+                            <button class="btn btn-sm" onclick="loadRecentData('crypto')">
+                                <i class="fas fa-refresh"></i>
+                            </button>
+                        </div>
+                        <div class="card-content">
+                            <div id="recent-crypto" class="data-list">
+                                <div class="loading">Loading...</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Weather</h3>
+                            <button class="btn btn-sm" onclick="loadRecentData('weather')">
+                                <i class="fas fa-refresh"></i>
+                            </button>
+                        </div>
+                        <div class="card-content">
+                            <div id="recent-weather" class="data-list">
+                                <div class="loading">Loading...</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Data Section -->
+        <section id="data" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <h1 class="section-title">Scraped Data</h1>
+                    <div class="section-controls">
+                        <div class="search-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="search-input" placeholder="Search data...">
+                        </div>
+                        <select id="type-filter">
+                            <option value="">All Types</option>
+                            <option value="news">News</option>
+                            <option value="crypto">Crypto</option>
+                            <option value="weather">Weather</option>
+                        </select>
+                        <select id="source-filter">
+                            <option value="">All Sources</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="data-container">
+                    <div id="data-list" class="data-grid">
+                        <div class="loading">Loading data...</div>
+                    </div>
+                    <div id="pagination" class="pagination"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Scraper Section -->
+        <section id="scraper" class="section">
+            <div class="container">
+                <h1 class="section-title">Scraper Controls</h1>
+                
+                <div class="scraper-grid">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Manual Scraping</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="scraper-buttons">
+                                <button class="btn btn-primary" onclick="triggerScraping('news')">
+                                    <i class="fas fa-newspaper"></i>
+                                    Scrape News
+                                </button>
+                                <button class="btn btn-primary" onclick="triggerScraping('crypto')">
+                                    <i class="fas fa-coins"></i>
+                                    Scrape Crypto
+                                </button>
+                                <button class="btn btn-primary" onclick="triggerScraping('weather')">
+                                    <i class="fas fa-cloud-sun"></i>
+                                    Scrape Weather
+                                </button>
+                                <button class="btn btn-success" onclick="triggerScraping('all')">
+                                    <i class="fas fa-play"></i>
+                                    Scrape All
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Cron Jobs Status</h3>
+                        </div>
+                        <div class="card-content">
+                            <div id="cron-status" class="cron-status">
+                                <div class="loading">Loading status...</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>System Actions</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="action-buttons">
+                                <button class="btn btn-warning" onclick="cleanupData()">
+                                    <i class="fas fa-broom"></i>
+                                    Cleanup Old Data
+                                </button>
+                                <button class="btn btn-info" onclick="restartCronJobs()">
+                                    <i class="fas fa-redo"></i>
+                                    Restart Cron Jobs
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Logs Section -->
+        <section id="logs" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <h1 class="section-title">Scraping Logs</h1>
+                    <div class="section-controls">
+                        <select id="log-type-filter">
+                            <option value="">All Types</option>
+                            <option value="news">News</option>
+                            <option value="crypto">Crypto</option>
+                            <option value="weather">Weather</option>
+                        </select>
+                        <button class="btn btn-sm" onclick="loadLogs()">
+                            <i class="fas fa-refresh"></i>
+                            Refresh
+                        </button>
+                    </div>
+                </div>
+
+                <div class="logs-container">
+                    <div id="logs-list" class="logs-list">
+                        <div class="loading">Loading logs...</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="loading-overlay">
+        <div class="loading-spinner">
+            <i class="fas fa-spinner fa-spin"></i>
+            <p>Processing...</p>
+        </div>
+    </div>
+
+    <!-- Notification Container -->
+    <div id="notifications" class="notifications"></div>
+
+    <!-- Scripts -->
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

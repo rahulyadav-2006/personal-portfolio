@@ -1,0 +1,64 @@
+{
+  "name": "live-data-scraper",
+  "version": "1.0.0",
+  "description": "Dynamic website with web scraping, database storage, and automated updates",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js",
+    "scrape": "node scripts/scraper.js",
+    "setup-db": "node scripts/setup-database.js",
+    "test": "jest",
+    "build": "echo 'No build process needed for Node.js app'",
+    "deploy:heroku": "git push heroku main",
+    "deploy:vercel": "vercel --prod",
+    "deploy:railway": "railway up"
+  },
+  "keywords": [
+    "web-scraping",
+    "nodejs",
+    "express",
+    "mongodb",
+    "cron",
+    "api",
+    "real-time"
+  ],
+  "author": {
+    "name": "Rahul Yadav",
+    "email": "rahul.yadav@email.com"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongoose": "^7.5.0",
+    "axios": "^1.5.0",
+    "cheerio": "^1.0.0-rc.12",
+    "puppeteer": "^21.3.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "node-cron": "^3.0.2",
+    "helmet": "^7.0.0",
+    "express-rate-limit": "^6.10.0",
+    "compression": "^1.7.4",
+    "morgan": "^1.10.0",
+    "socket.io": "^4.7.2",
+    "moment": "^2.29.4",
+    "lodash": "^4.17.21"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1",
+    "jest": "^29.6.4",
+    "supertest": "^6.3.3"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rahulyadav/live-data-scraper.git"
+  },
+  "bugs": {
+    "url": "https://github.com/rahulyadav/live-data-scraper/issues"
+  },
+  "homepage": "https://live-data-scraper.vercel.app"
+}
