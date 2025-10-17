@@ -1,0 +1,7 @@
+services:
+  - type: static_site
+    name: personal-portfolio
+    env: static
+    branch: main
+    buildCommand: ""
+    publishPath: "."
